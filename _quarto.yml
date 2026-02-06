@@ -1,0 +1,54 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Clinical Graphics"
+
+  page-footer: 
+    right: "This page is built with [Quarto](https://quarto.org/)"
+    left: "Untitled © 1999 by Jane Doe is licensed under Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International"
+  
+  navbar:
+    search: true
+    right:
+    - icon: linkedin
+      text: LinkedIn
+      url: https://www.linkedin.com/in/maxime-fleury-/
+    - icon: github
+      text: Github
+      url: gitlab.com/F.MAXIME/
+    left:
+    - text: "Clinical Graphics"
+      href: graphics_theoric_interest.qmd
+    - text: "Analysis Graphics list"
+      menu:
+        - text: "Tornado plot"
+          href: "Tornado_plot_page.qmd"
+        - text: "Mosaic plot"
+          href: mosaic_plot_page.qmd
+          
+        - text: "Waterfall plot"
+      
+        - text: "Risk plot"
+    
+        - text: "Survival plot"
+          
+
+    - text: "Patient profil graphics list"
+      menu:
+        - text: "Lexis diagram"
+          href: lexis_diagram_page.qmd
+
+        - text: "Consort diagram"
+
+        - text: "Swimmer plot"
+
+format:
+  html:
+    theme:
+      light: united
+      dark: Superhero
+    toggle: true
+    code-copy: true
+

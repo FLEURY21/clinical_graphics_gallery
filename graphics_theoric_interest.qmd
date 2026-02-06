@@ -1,0 +1,145 @@
+---
+title: "Clinical Graphics"
+author: "Maxime Fleury"
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: Contents
+    self-contained: true
+---
+
+
+<details style="position: fixed; right: 0; top: 80px; padding: 10px; background: none; width: 350px;">
+  <summary style="cursor:pointer;"><strong>📌 About Us</strong></summary>
+  
+  <u><strong>Links</strong></u>
+  
+  Personal website (comming soon)
+
+  Contact (comming soon)
+  
+  <u>**License**</u>
+
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+
+[Clinical Graphics]{property="dct:title"} by [Maxime FLEURY]{property="cc:attributionName"} is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/></a>
+
+</p>
+
+<u>**Community**</u> 
+
+Website (comming soon)
+
+<u>**Developers**</u>
+
+Maxime Fleury, *Author, maintainer* - Health Statistician Developers
+
+<u>**Dev status**</u>
+
+*Vignette creation:* 11/12/2025
+
+*Last update:* 11/12/2025
+
+*Repos status:* <span style="color:green">Active</span>
+  
+
+</details>
+
+
+
+# Overview
+
+<div style="text-align: justify;">
+
+The **advent of innovative therapies**, particularly in oncology (e.g., immunotherapy), combined with the rapid **rise of artificial intelligence**, has led to a significant increase in the **complexity** of clinical questions and hypotheses. In this context, traditional representation methods (tables, histograms) are no longer sufficient to ensure a high level of analytical performance and presentation quality in the face of these new challenges. It is therefore essential to **innovate in data visualization** by adopting robust, reproducible, and fit-for purpose representations.
+
+We distinguish two main categories of graphics:
+
+
+<details>
+  <summary><strong>Analysis Graphics</strong></summary>
+  <p>
+    These graphics aim to <strong>enhance the understanding of results</strong>. They allow rapid visualization of population profiles across treatment groups and categorical variables (e.g., sex, HER2 status), help detect statistical differences, and highlight key findings relevant to the clinical trial.
+  </p>
+  <p><strong>Objectives:</strong></p>
+  <ul>
+    <li><strong>Facilitate dialogue</strong> among stakeholders involved in the trial</li>
+    <li>Provide an <strong>intuitive, fast, and impactful</strong> reading experience</li>
+    <li>Serve as a <strong>support for scientific</strong> presentations (articles, conferences, slide decks, posters)</li>
+  </ul>
+</details>
+
+
+<details>
+  <summary><strong>Patient profile graphics</strong></summary>
+  <p>
+   These graphics are designed to facilitate and accelerate clinical decision-making.
+  </p>
+  <p><strong>Objectives:</strong></p>
+  <ul>
+    <li><strong>Visualization</strong> and better <strong>understanding</strong> of the database structure</li>
+    <li>Assessment of <strong>data quality</strong> for statistical analysis</li>
+    <li>Improved <strong>clinical statistical follow-up</strong> of each patient by highlighting individual and global trends.Through these representations, deriving survival endpoints and longitudinal indicators becomes easier</li>
+  </ul>
+  <p>
+  <strong>Integration in DSMB</strong>: During Data Safety Monitoring Board (DSMB) meetings, these graphics serve as a strategic tool: they enable rapid <strong>detection of inconsistencies</strong>, support timely and <strong>effective decision-making</strong>, and provide critical elements to <strong>ensure patient safety</strong> throughout the study.
+  </p>
+</details>
+
+
+These graphics must comply with clinical research standards and are strongly encouraged by international guidelines such as **CDISC, ICH, EMA, and FDA**.
+
+</div>
+
+## Objectives
+
+<div style="text-align: justify;">
+
+The purpose of this work is to **present a set of essential graphical representations** that support the execution of high-quality clinical trials. All examples are derived from datasets structured according to **CDISC** (Clinical Data Interchange Standards Consortium) standards in **ADaM** (Analysis Data Model) format, ensuring compliance with regulatory and industry requirements. The visualizations are **implemented using R, Python3, and SAS** to demonstrate versatility and adherence to best practices in clinical data analysis.
+
+Data has been generated with [*random.cdisc*](https://insightsengineering.github.io/random.cdisc.data/main/index.html) library of the CRAN in R (Version 4.2.0). Specifically, data used are :
+</div>
+
+- **adsl:** Subject-Level Analysis Dataset (ADSL)
+
+- **adae:** Adverse Event Analysis Dataset (ADAE)
+
+- **adrs:** Response Analysis Dataset (ADRS)
+
+- **adlb:** Laboratory Data Analysis Dataset (ADLB)
+
+- **adtte:** Time-to-Event Dataset (ADTTE)
+
+- **adex:** Exposure Analysis Dataset (ADEX)
+
+# Graphics
+
+## Analysis
+
+
+![](images/ag.png)
+
+
+
+
+## Patient profil
+
+
+![](images/pp.png)
+
+
+# References
+
+- [CDISC ADaM](https://www.cdisc.org/standards/foundational/adam)
+
+- [ADaM Data Structure for Adverse Event Analysis v1.0](https://www.cdisc.org/standards/foundational/adam/adam-data-structure-adverse-event-analysis-v1-0)
+
+- Rucki P, Paszty N, Stoilova J, Zhu J, Garolini D, de la Rua E, DiPietrantonio C, Waddell A (2025). *random.cdisc.data: Create Random ADaM Datasets*. R package version 0.3.16.9007, [](https://insightsengineering.github.io/random.cdisc.data/main/index.html)
+
+
+
+
+
+
+
