@@ -35,32 +35,53 @@
     "text": "SAS program\n\n# Step 1 data process of ADSL, ADEX and ADRS tables.\n\n# Step 2: You must obtain a table with next column: SUBJID | Start study | Lost followUp | StartStatut | DELAY | Value | Attribute\n\n# Step 3: sgplot\n\nods graphics / reset width=800px height=600px attrpriority=none imagename='SWIMMER_SAS';\nproc sgplot data=WORK.swimmer dattrmap=attrmap_evt;\nstyleattrs datacontrastcolors=(green pink red);\nhighlow y=SUBJID low=Start_study high=LF / type=LINE lineattrs=(thickness=11 color=gray pattern=Solid)  transparency=0.8;\nhighlow y=SUBJID low=StartStatut high=LF / type=LINE lineattrs=(thickness=11 pattern=Solid) group=gr;\nscatter x=DELAY Y=subjid / group=value attrid=myMap markerattrs=(size=12);\nkeylegend / title=\"Événement – Statut\";\nxaxis label=\"Delay\";\nyaxis label=\"Patient ID\";\ntitle \"Clinical Dose profil (Swimmer plot)\";\nrun;\nods graphics off;"
   },
   {
-    "objectID": "mosaic_plot_page.html",
-    "href": "mosaic_plot_page.html",
-    "title": "MOSAIC",
+    "objectID": "sankey_plot_page.html",
+    "href": "sankey_plot_page.html",
+    "title": "Sankey diagram",
     "section": "",
     "text": "📌 About Us\n\nLinks\nPersonal website (comming soon)\ncontact: fleurym@ipc.unicancer.fr\nLicense\n\nClinical Graphics by Maxime FLEURY is licensed under CC BY-NC-SA 4.0\n\nCommunity\nInnostatclinical\nContributor\nMaxime Fleury, Author, maintainer - Health Statistician\nDev status\nVignette creation: 11/12/2025\nLast update: 11/12/2025\nRepos status: Active"
   },
   {
-    "objectID": "mosaic_plot_page.html#specific-use-case-clinical-trials-and-adverse-events-ctc-ae",
-    "href": "mosaic_plot_page.html#specific-use-case-clinical-trials-and-adverse-events-ctc-ae",
-    "title": "MOSAIC",
+    "objectID": "sankey_plot_page.html#specific-use-case-clinical-trials-and-adverse-events-ctc-ae",
+    "href": "sankey_plot_page.html#specific-use-case-clinical-trials-and-adverse-events-ctc-ae",
+    "title": "Sankey diagram",
     "section": "Specific Use Case: Clinical Trials and Adverse Events (CTC-AE)",
-    "text": "Specific Use Case: Clinical Trials and Adverse Events (CTC-AE)\n\nIn clinical trials, MOSAIC plots can illustrate the distribution of toxicity grades (CTC-AE) according to:\n\nPatient sex (X-axis),\nRandomization arm (grouping),\nand Grades (0 to 5) expressed as percentages (Y-axis).\n\n\n\nCTCAE code according to the CTC-AE classification of MEDRA\n\n\nGrade 1: Mild\nGrade 2: Moderate\nGrade 3: Severe\nGrade 4: Life-threatening\nGrade 5: Death related to adverse event\n\n\nThis approach allows you to:\n\nQuickly visualize safety profiles across treatment arms,\nDetect potential sex-related differences,\nand communicate safety data effectively in an intuitive format.\n\nFor example a Mosaïc plot showing that, in the experimental arm, females have a higher proportion of grade 2–3 adverse events compared to males may guide further analysis toward specific risk factors."
+    "text": "Specific Use Case: Clinical Trials and Adverse Events (CTC-AE)\n\nIn clinical trials, a Sankey diagram can serve as a valuable tool for exploring the dynamics of subpopulations, for example when analyzing adverse events (AEs). It can illustrate participant transitions with respect to AE severity, suspected causality, or medical category, and can help visualize how certain subgroups evolve differently across the axes under study.\nOne major advantage of this approach is its ability to reveal particular trajectories, such as patients experiencing recurrent severe AEs or belonging to specific symptom clusters, thereby supporting the identification of subpopulations that may warrant closer examination. However, this method also has limitations, especially when data disparities between axes create numerous crossing flows, potentially leading to a visually complex or confusing representation.\nThe objective of a Sankey diagram in a clinical context must therefore be carefully defined beforehand, as its usefulness strongly depends on data structure, selected granularity, and the specific question being addressed by the user. When well designed and applied with discernment, it remains a powerful tool for summarizing multidimensional patterns related to safety outcomes or the clinical evolution of a study population.\nAnother graphics in relation with the Sankey diagram is the Alluvial plot."
   },
   {
-    "objectID": "mosaic_plot_page.html#advantages-of-mosaic-plots-in-this-context",
-    "href": "mosaic_plot_page.html#advantages-of-mosaic-plots-in-this-context",
-    "title": "MOSAIC",
-    "section": "Advantages of MOSAIC plots in this context",
-    "text": "Advantages of MOSAIC plots in this context\n\n\nVisual synthesis of multidimensional data.\nDirect comparison between subgroups.\nIdeal for safety reporting and publications."
+    "objectID": "lexis_diagram_page.html",
+    "href": "lexis_diagram_page.html",
+    "title": "Lexis Diagram",
+    "section": "",
+    "text": "📌 About Us\n\nLinks\nPersonal website (comming soon)\ncontact: fleurym@ipc.unicancer.fr\nLicense\n\nClinical Graphics by Maxime FLEURY is licensed under CC BY-NC-SA 4.0\n\nCommunity\nInnostatclinical\nContributor\nMaxime Fleury, Author, maintainer - Health Statistician\nDev status\nVignette creation: 11/12/2025\nLast update: 11/12/2025\nRepos status: Active"
   },
   {
-    "objectID": "mosaic_plot_page.html#sas-program",
-    "href": "mosaic_plot_page.html#sas-program",
-    "title": "MOSAIC",
-    "section": "SAS program",
-    "text": "SAS program\n\n# Data Process to compute % by categoricals variables.\n\nproc sql;\n    create table df_pct as\n    select \n        a.ARM,\n        a.SEX,\n        a.AEBODSYS,\n        count(*) as n,\n        calculated n / b.total as pct,\n        put(calculated n / b.total * 100, 5.1) || '%' as pct_label\n    from adae a\n    inner join \n        (select ARM, SEX, count(*) as total\n         from adae\n         group by ARM, SEX) b\n    on a.ARM = b.ARM and a.SEX = b.SEX\n    group by a.ARM, a.SEX, a.AEBODSYS, b.total\n    ;\nquit;\n\ndata df_pct;\n    set df_pct;\n    length pct_label_ 8.;\n    pct_label_ = round(pct*100, 0.01); \nrun;\n\n# Graphic process. Change ARM, SEX for categorical variable and AEBODSYS for % variable.\n\nods listing gpath='path\\to\\save' image_dpi=300 style=listing;\nods graphics / reset width=6in height=4in imagename='MOSAIC';\nproc sgpanel data=df_pct;\n    panelby ARM / columns=2 novarname spacing=10;\n    vbar SEX / response=pct_label_\n               group=AEBODSYS\n               stat=sum\n               seglabel\n               datalabelattrs=(weight=bold color=black size=12)\n               outlineattrs=(thickness=1);\n    rowaxis label=\"Pourcentage\";\n    keylegend / title=\"SOC\";\n    colaxis grid;\nrun;\nods graphics off;\nods listing close;"
+    "objectID": "lexis_diagram_page.html#why-use-a-lexis-diagram",
+    "href": "lexis_diagram_page.html#why-use-a-lexis-diagram",
+    "title": "Lexis Diagram",
+    "section": "Why Use a Lexis Diagram",
+    "text": "Why Use a Lexis Diagram\n\n\n\nDetect inconsistencies: Quickly identify data entry errors (incorrect dates, wrong status, missed or delayed visits)\n\n\nMonitor recruitment dynamics: Visualize the pace of patient enrollment and spot potential delays. Plot the inclusion curve: In addition to individual timelines, the diagram can display the overall trend of patient recruitment over time\n\n\nCheck protocol compliance: Highlight missed visits, delays in status updates, or deviations from the planned schedule\n\n\nGain an overview of data quality: acilitate a global assessment of trial progress and adherence to protocol\n\n\nIn summary, the Lexis diagram is a powerful tool to anticipate issues, improve data quality, and enhance communication among teams. Regular use, especially before DSMB meetings, contributes to better trial governance."
+  },
+  {
+    "objectID": "lexis_diagram_page.html#advantages",
+    "href": "lexis_diagram_page.html#advantages",
+    "title": "Lexis Diagram",
+    "section": "Advantages",
+    "text": "Advantages\n\n\n\nVisual clarity and speed: Summarizes complex information in an intuitive graphic\n\n\nTime-saving: Enables quick analysis without navigating large tables\n\n\nMonitoring support: Helps monitoring teams focus on patients or sites requiring special attention\n\n\nPreparation for DSMB meetings: Before a Data Safety Monitoring Board review, the Lexis diagram provides a consolidated view of inclusions and protocol adherence, enhancing transparency and discussion quality"
+  },
+  {
+    "objectID": "lexis_diagram_page.html#limitations",
+    "href": "lexis_diagram_page.html#limitations",
+    "title": "Lexis Diagram",
+    "section": "Limitations",
+    "text": "Limitations\n\n\n\nComplexity in large trials: Readability may decrease with a high number of patients\n\n\nDependent on data quality: The diagram is only reliable if data entry is accurate and complete\n\n\nDescriptive tool: It complements statistical analyses but does not replace them"
+  },
+  {
+    "objectID": "consort_diagram_page.html",
+    "href": "consort_diagram_page.html",
+    "title": "Consort diagram",
+    "section": "",
+    "text": "📌 About Us\n\nLinks\nPersonal website (comming soon)\ncontact: fleurym@ipc.unicancer.fr\nLicense\n\nClinical Graphics by Maxime FLEURY is licensed under CC BY-NC-SA 4.0\n\nCommunity\nInnostatclinical\nContributor\nMaxime Fleury, Author, maintainer - Health Statistician\nDev status\nVignette creation: 11/12/2025\nLast update: 11/12/2025\nRepos status: Active\n\n\nWhat is a Study flux diagram in clinical trial\nIn clinical trials, the flow diagram of study populations illustrates the path of participants from their inclusion in the study to the different analysis sets used for statistical evaluation. This diagram provides a clear view of the actual numbers involved, the exclusions, and the potential impact of these changes on the robustness of the analyses.\nIn Phase I (objective: assess safety, tolerability, and pharmacokinetics), the diagram shows the participants included, those who received at least one dose of the investigational product, and any early discontinuations. The focus is on actual exposure, which is essential for defining the safety population.\nIn Phase II (objective: provide initial evidence of efficacy and refine dosing), the diagram displays the participants included, those potentially randomized depending on the study design, those treated, participants with evaluable efficacy data, and the reasons for withdrawal or exclusion from analyses. For randomized studies, the representation must follow the CONSORT flow diagram, an international standard structured into four stages (inclusion, allocation, follow‑up, analysis). CONSORT applies only to randomized trials; non‑randomized studies use a standard population flow diagram instead.\n\n\nPopulation sets\n\n\nThe ICH E3 and ICH E9 guidelines define several key statistical populations required for regulatory analyses:\n\n\n\nPrimary Criteria Analysis Set: participants with the necessary data to evaluate the primary efficacy endpoint.\n\n\nAll Patients Set: all participants included in the study.\n\n\nFull Analysis Set (FAS): a population close to the intention‑to‑treat principle, including participants who received at least one dose or who have at least one evaluable efficacy measurement.\n\n\nSafety Set: all participants who received at least one administration of the study treatment, forming the basis for safety and tolerability analyses.\n\n\n\nThese elements ensure transparency, methodological consistency, and alignment with international regulatory standards in clinical study reports and scientific publications.\n\n\nExemples\n\n\nExemple\n\nPhase I (R)Phase II (R)Randomized trial (SAS version)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nGraphics has been built with the ADSL table. Data has been generated with random.cdisc librairy of the CRAN in R (Version 4.2.0).\n\n\n\n\n\n\n\n\nImportant\n\n\n\nTo generate our CONSORT flow diagrams in SAS, we rely on the open‑source project sas‑consort‑sgplot, available on GitHub. This project provides a simplified implementation of the original SAS programs developed by Prashant Hebbar and Sanjay Matange, as presented in their PharmaSUG 2018 paper CONSORT Diagrams with SG Procedures. Their work demonstrates how to construct publication‑quality CONSORT diagrams using SAS SG procedures and has become a widely referenced approach within the clinical programming community.\nThe GitHub project sas‑consort‑sgplot builds upon and streamlines the methodology described in the PharmaSUG article, offering a more straightforward and modular set of SAS macros. These improvements facilitate the creation of CONSORT diagrams while reducing programming complexity.\nTo write this page, we re‑use, adapt, and extend this simplified macro framework to meet the specific constraints of our clinical studies.\n\n\n\n\nReferences\n\nhttps://github.com/srosanba/sas-consort-sgplot/tree/master\nhttps://www.lexjansen.com/pharmasug/2018/DV/PharmaSUG-2018-DV24.pdf"
   },
   {
     "objectID": "graphics_theoric_interest.html",
@@ -91,39 +112,32 @@
     "text": "Patient profil"
   },
   {
-    "objectID": "consort_diagram_page.html",
-    "href": "consort_diagram_page.html",
-    "title": "Consort diagram",
-    "section": "",
-    "text": "📌 About Us\n\nLinks\nPersonal website (comming soon)\ncontact: fleurym@ipc.unicancer.fr\nLicense\n\nClinical Graphics by Maxime FLEURY is licensed under CC BY-NC-SA 4.0\n\nCommunity\nInnostatclinical\nContributor\nMaxime Fleury, Author, maintainer - Health Statistician\nDev status\nVignette creation: 11/12/2025\nLast update: 11/12/2025\nRepos status: Active\n\n\nWhat is a Study flux diagram in clinical trial\nIn clinical trials, the flow diagram of study populations illustrates the path of participants from their inclusion in the study to the different analysis sets used for statistical evaluation. This diagram provides a clear view of the actual numbers involved, the exclusions, and the potential impact of these changes on the robustness of the analyses.\nIn Phase I (objective: assess safety, tolerability, and pharmacokinetics), the diagram shows the participants included, those who received at least one dose of the investigational product, and any early discontinuations. The focus is on actual exposure, which is essential for defining the safety population.\nIn Phase II (objective: provide initial evidence of efficacy and refine dosing), the diagram displays the participants included, those potentially randomized depending on the study design, those treated, participants with evaluable efficacy data, and the reasons for withdrawal or exclusion from analyses. For randomized studies, the representation must follow the CONSORT flow diagram, an international standard structured into four stages (inclusion, allocation, follow‑up, analysis). CONSORT applies only to randomized trials; non‑randomized studies use a standard population flow diagram instead.\n\n\nPopulation sets\n\n\nThe ICH E3 and ICH E9 guidelines define several key statistical populations required for regulatory analyses:\n\n\n\nPrimary Criteria Analysis Set: participants with the necessary data to evaluate the primary efficacy endpoint.\n\n\nAll Patients Set: all participants included in the study.\n\n\nFull Analysis Set (FAS): a population close to the intention‑to‑treat principle, including participants who received at least one dose or who have at least one evaluable efficacy measurement.\n\n\nSafety Set: all participants who received at least one administration of the study treatment, forming the basis for safety and tolerability analyses.\n\n\n\nThese elements ensure transparency, methodological consistency, and alignment with international regulatory standards in clinical study reports and scientific publications.\n\n\nExemples\n\n\nExemple\n\nPhase I (R)Phase II (R)Randomized trial (SAS version)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nGraphics has been built with the ADSL table. Data has been generated with random.cdisc librairy of the CRAN in R (Version 4.2.0).\n\n\n\n\n\n\n\n\nImportant\n\n\n\nTo generate our CONSORT flow diagrams in SAS, we rely on the open‑source project sas‑consort‑sgplot, available on GitHub. This project provides a simplified implementation of the original SAS programs developed by Prashant Hebbar and Sanjay Matange, as presented in their PharmaSUG 2018 paper CONSORT Diagrams with SG Procedures. Their work demonstrates how to construct publication‑quality CONSORT diagrams using SAS SG procedures and has become a widely referenced approach within the clinical programming community.\nThe GitHub project sas‑consort‑sgplot builds upon and streamlines the methodology described in the PharmaSUG article, offering a more straightforward and modular set of SAS macros. These improvements facilitate the creation of CONSORT diagrams while reducing programming complexity.\nTo write this page, we re‑use, adapt, and extend this simplified macro framework to meet the specific constraints of our clinical studies.\n\n\n\n\nReferences\n\nhttps://github.com/srosanba/sas-consort-sgplot/tree/master\nhttps://www.lexjansen.com/pharmasug/2018/DV/PharmaSUG-2018-DV24.pdf"
-  },
-  {
-    "objectID": "lexis_diagram_page.html",
-    "href": "lexis_diagram_page.html",
-    "title": "Lexis Diagram",
+    "objectID": "mosaic_plot_page.html",
+    "href": "mosaic_plot_page.html",
+    "title": "MOSAIC",
     "section": "",
     "text": "📌 About Us\n\nLinks\nPersonal website (comming soon)\ncontact: fleurym@ipc.unicancer.fr\nLicense\n\nClinical Graphics by Maxime FLEURY is licensed under CC BY-NC-SA 4.0\n\nCommunity\nInnostatclinical\nContributor\nMaxime Fleury, Author, maintainer - Health Statistician\nDev status\nVignette creation: 11/12/2025\nLast update: 11/12/2025\nRepos status: Active"
   },
   {
-    "objectID": "lexis_diagram_page.html#why-use-a-lexis-diagram",
-    "href": "lexis_diagram_page.html#why-use-a-lexis-diagram",
-    "title": "Lexis Diagram",
-    "section": "Why Use a Lexis Diagram",
-    "text": "Why Use a Lexis Diagram\n\n\n\nDetect inconsistencies: Quickly identify data entry errors (incorrect dates, wrong status, missed or delayed visits)\n\n\nMonitor recruitment dynamics: Visualize the pace of patient enrollment and spot potential delays. Plot the inclusion curve: In addition to individual timelines, the diagram can display the overall trend of patient recruitment over time\n\n\nCheck protocol compliance: Highlight missed visits, delays in status updates, or deviations from the planned schedule\n\n\nGain an overview of data quality: acilitate a global assessment of trial progress and adherence to protocol\n\n\nIn summary, the Lexis diagram is a powerful tool to anticipate issues, improve data quality, and enhance communication among teams. Regular use, especially before DSMB meetings, contributes to better trial governance."
+    "objectID": "mosaic_plot_page.html#specific-use-case-clinical-trials-and-adverse-events-ctc-ae",
+    "href": "mosaic_plot_page.html#specific-use-case-clinical-trials-and-adverse-events-ctc-ae",
+    "title": "MOSAIC",
+    "section": "Specific Use Case: Clinical Trials and Adverse Events (CTC-AE)",
+    "text": "Specific Use Case: Clinical Trials and Adverse Events (CTC-AE)\n\nIn clinical trials, MOSAIC plots can illustrate the distribution of toxicity grades (CTC-AE) according to:\n\nPatient sex (X-axis),\nRandomization arm (grouping),\nand Grades (0 to 5) expressed as percentages (Y-axis).\n\n\n\nCTCAE code according to the CTC-AE classification of MEDRA\n\n\nGrade 1: Mild\nGrade 2: Moderate\nGrade 3: Severe\nGrade 4: Life-threatening\nGrade 5: Death related to adverse event\n\n\nThis approach allows you to:\n\nQuickly visualize safety profiles across treatment arms,\nDetect potential sex-related differences,\nand communicate safety data effectively in an intuitive format.\n\nFor example a Mosaïc plot showing that, in the experimental arm, females have a higher proportion of grade 2–3 adverse events compared to males may guide further analysis toward specific risk factors."
   },
   {
-    "objectID": "lexis_diagram_page.html#advantages",
-    "href": "lexis_diagram_page.html#advantages",
-    "title": "Lexis Diagram",
-    "section": "Advantages",
-    "text": "Advantages\n\n\n\nVisual clarity and speed: Summarizes complex information in an intuitive graphic\n\n\nTime-saving: Enables quick analysis without navigating large tables\n\n\nMonitoring support: Helps monitoring teams focus on patients or sites requiring special attention\n\n\nPreparation for DSMB meetings: Before a Data Safety Monitoring Board review, the Lexis diagram provides a consolidated view of inclusions and protocol adherence, enhancing transparency and discussion quality"
+    "objectID": "mosaic_plot_page.html#advantages-of-mosaic-plots-in-this-context",
+    "href": "mosaic_plot_page.html#advantages-of-mosaic-plots-in-this-context",
+    "title": "MOSAIC",
+    "section": "Advantages of MOSAIC plots in this context",
+    "text": "Advantages of MOSAIC plots in this context\n\n\nVisual synthesis of multidimensional data.\nDirect comparison between subgroups.\nIdeal for safety reporting and publications."
   },
   {
-    "objectID": "lexis_diagram_page.html#limitations",
-    "href": "lexis_diagram_page.html#limitations",
-    "title": "Lexis Diagram",
-    "section": "Limitations",
-    "text": "Limitations\n\n\n\nComplexity in large trials: Readability may decrease with a high number of patients\n\n\nDependent on data quality: The diagram is only reliable if data entry is accurate and complete\n\n\nDescriptive tool: It complements statistical analyses but does not replace them"
+    "objectID": "mosaic_plot_page.html#sas-program",
+    "href": "mosaic_plot_page.html#sas-program",
+    "title": "MOSAIC",
+    "section": "SAS program",
+    "text": "SAS program\n\n# Data Process to compute % by categoricals variables.\n\nproc sql;\n    create table df_pct as\n    select \n        a.ARM,\n        a.SEX,\n        a.AEBODSYS,\n        count(*) as n,\n        calculated n / b.total as pct,\n        put(calculated n / b.total * 100, 5.1) || '%' as pct_label\n    from adae a\n    inner join \n        (select ARM, SEX, count(*) as total\n         from adae\n         group by ARM, SEX) b\n    on a.ARM = b.ARM and a.SEX = b.SEX\n    group by a.ARM, a.SEX, a.AEBODSYS, b.total\n    ;\nquit;\n\ndata df_pct;\n    set df_pct;\n    length pct_label_ 8.;\n    pct_label_ = round(pct*100, 0.01); \nrun;\n\n# Graphic process. Change ARM, SEX for categorical variable and AEBODSYS for % variable.\n\nods listing gpath='path\\to\\save' image_dpi=300 style=listing;\nods graphics / reset width=6in height=4in imagename='MOSAIC';\nproc sgpanel data=df_pct;\n    panelby ARM / columns=2 novarname spacing=10;\n    vbar SEX / response=pct_label_\n               group=AEBODSYS\n               stat=sum\n               seglabel\n               datalabelattrs=(weight=bold color=black size=12)\n               outlineattrs=(thickness=1);\n    rowaxis label=\"Pourcentage\";\n    keylegend / title=\"SOC\";\n    colaxis grid;\nrun;\nods graphics off;\nods listing close;"
   },
   {
     "objectID": "survival_plot_page.html",
@@ -159,19 +173,5 @@
     "title": "Tornado",
     "section": "SAS program",
     "text": "SAS program\n\n# Clean data set and prepare variable name\ndata WORK.ADAE_clean;\n    set WORK.ADAE;\n    length ARM_clean $10.;\n    if ARM in (\"A: Drug\") then ARM_clean = \"Drug\";\n    else ARM_clean = \"Placebo\";\nrun;\n\n\n# Compute frequency of adverse events by any grades and gades greater than 3\nproc sql;\n    create table ae_any as\n    select ARM_clean as ARM,\n           AEBODSYS,\n           count(distinct SUBJID) as n_any\n    from WORK.ADAE_clean\n    group by ARM, AEBODSYS;\nquit;\n\nproc sql;\n    create table ae_any as\n    select Distinct AEBODSYS, ARM, n_any\n    from WORK.ae_any;\nquit;\n\ndata work.ae_any;\n    set work.ae_any;\n    length pop $200.;\n    pop = \"Any grade\";\n    if ARM in (\"Drug\") then n_any = round((n_any / 67) * 100, 0.01);\n    else n_any = round((n_any / 65) * 100, 0.01);\nrun;\n    \n\nproc sql;\n    create table ae_g3 as\n    select ARM_clean as ARM,\n           AEBODSYS,\n           count(distinct SUBJID) as n_g3\n    from WORK.ADAE_clean\n    where AETOXGR &gt;= 3\n    group by ARM, AEBODSYS;\nquit;\n\nproc sql;\n    create table ae_g3 as\n    select Distinct AEBODSYS, ARM, n_g3\n    from WORK.ae_g3;\nquit;\n\ndata work.ae_g3;\n    set work.ae_g3;\n    length pop $200.;\n    pop = \"Grade &gt;= 3\";\n    if ARM in (\"Drug\") then n_g3 = round((n_g3 / 67) * 100, 0.01);\n    else n_g3 = round((n_g3 / 65) * 100, 0.01);\n    rename n_g3=n_any;\nrun;\n    \n# Format position of barchart on plot\n\ndata WORK.plotdata;\n    set work.ae_any work.ae_g3;\n    if ARM in (\"Placebo\") then n_any = -1 * n_any;\nrun;\n    \n# Process label position, legend and group plot\n\ndata plotdata2;\n    set plotdata;\n    length grp $20. g3 8. gall 8. posr 8. posl 8. labr 8. labl 8.;\n\n    if pop=\"Any grade\" then gall=n_any;\n    if pop=\"Grade &gt;= 3\" then g3=n_any;\n    if ARM=\"Drug\" then posr = gall + 10;\n    if ARM=\"Placebo\" then posl = gall - 10;\n    if ARM=\"Drug\" and pop=\"Any grade\" then labr = gall;\n    if ARM=\"Placebo\" and pop=\"Any grade\" then labl = gall;\n    if ARM=\"Drug\" and pop=\"Any grade\" then grp=\"Drug - All grades\";\n    else if ARM=\"Drug\" and pop=\"Grade &gt;= 3\" then grp=\"Drug - Grade &gt;=3\";\n    else if ARM=\"Placebo\" and pop=\"Any grade\" then grp=\"Placebo - All grades\";\n    else if ARM=\"Placebo\" and pop=\"Grade &gt;= 3\" then grp=\"Placebo - Grade &gt;=3\";\nrun;\n\n# Plot\n\nods listing gpath='path/to/save' image_dpi=300 style=listing;\nods graphics / reset width=6in height=4in imagename='TORNADO';\nproc sgplot data=plotdata2;\n    \n    styleattrs datacolors=(magenta green pink cyan);\n    hbarparm category=AEBODSYS response=gall / \n        baseline=0\n        group=grp\n        groupdisplay=stacked\n        fillattrs=(transparency=0.3)\n        barwidth=0.6\n        name=\"all\";\n\n    hbarparm category=AEBODSYS response=g3 / \n        baseline=0\n        group=grp\n        groupdisplay=stacked\n        seglabel\n        fillattrs=(transparency=0.3)\n        barwidth=0.6\n        name=\"all\";\n    text x=posr y=AEBODSYS text=labr /strip CONTRIBUTEOFFSETS=none;\n    text x=posl y=AEBODSYS text=labl /strip CONTRIBUTEOFFSETS=none;\n    \n    refline 0 / axis=x lineattrs=(pattern=shortdash thickness=2 color=black);\n\n    xaxis label=\"Pourcentage (%)\" min=-105 max=105;\n    yaxis label=\"SOC\";\n\n    keylegend \"all\" / title=\"Population\";\nrun;\n\n\n\nods graphics off;\nods listing close;\n\nproc datasets library=work kill nolist;\nquit;"
-  },
-  {
-    "objectID": "sankey_plot_page.html",
-    "href": "sankey_plot_page.html",
-    "title": "Sankey diagram",
-    "section": "",
-    "text": "📌 About Us\n\nLinks\nPersonal website (comming soon)\ncontact: fleurym@ipc.unicancer.fr\nLicense\n\nClinical Graphics by Maxime FLEURY is licensed under CC BY-NC-SA 4.0\n\nCommunity\nInnostatclinical\nContributor\nMaxime Fleury, Author, maintainer - Health Statistician\nDev status\nVignette creation: 11/12/2025\nLast update: 11/12/2025\nRepos status: Active"
-  },
-  {
-    "objectID": "sankey_plot_page.html#specific-use-case-clinical-trials-and-adverse-events-ctc-ae",
-    "href": "sankey_plot_page.html#specific-use-case-clinical-trials-and-adverse-events-ctc-ae",
-    "title": "Sankey diagram",
-    "section": "Specific Use Case: Clinical Trials and Adverse Events (CTC-AE)",
-    "text": "Specific Use Case: Clinical Trials and Adverse Events (CTC-AE)\n\nIn clinical trials, a Sankey diagram can serve as a valuable tool for exploring the dynamics of subpopulations, for example when analyzing adverse events (AEs). It can illustrate participant transitions with respect to AE severity, suspected causality, or medical category, and can help visualize how certain subgroups evolve differently across the axes under study.\nOne major advantage of this approach is its ability to reveal particular trajectories, such as patients experiencing recurrent severe AEs or belonging to specific symptom clusters, thereby supporting the identification of subpopulations that may warrant closer examination. However, this method also has limitations, especially when data disparities between axes create numerous crossing flows, potentially leading to a visually complex or confusing representation.\nThe objective of a Sankey diagram in a clinical context must therefore be carefully defined beforehand, as its usefulness strongly depends on data structure, selected granularity, and the specific question being addressed by the user. When well designed and applied with discernment, it remains a powerful tool for summarizing multidimensional patterns related to safety outcomes or the clinical evolution of a study population.\nAnother graphics in relation with the Sankey diagram is the Alluvial plot."
   }
 ]
