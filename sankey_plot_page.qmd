@@ -1,0 +1,150 @@
+---
+title: "Sankey diagram"
+author: "Maxime Fleury"
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: Contents
+    self-contained: true
+---
+
+
+<details style="position: fixed; right: 0; top: 80px; padding: 10px; background: none; width: 350px;">
+  <summary style="cursor:pointer;"><strong>📌 About Us</strong></summary>
+  
+  <u><strong>Links</strong></u>
+  
+  Personal website (comming soon)
+
+  **contact:** fleurym@ipc.unicancer.fr
+  
+  <u>**License**</u>
+
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+
+[Clinical Graphics]{property="dct:title"} by [Maxime FLEURY]{property="cc:attributionName"} is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/></a>
+
+</p>
+
+<u>**Community**</u> 
+
+[Innostatclinical](https://innostatclinical.com/en/)
+
+<u>**Contributor**</u>
+
+Maxime Fleury, *Author, maintainer* - Health Statistician
+
+<u>**Dev status**</u>
+
+*Vignette creation:* 11/12/2025
+
+*Last update:* 11/12/2025
+
+*Repos status:* <span style="color:green">Active</span>
+
+</details>
+
+
+
+# What is a Sankey diagram
+
+<div style="text-align: justify;">
+
+A **Sankey diagram** is a graphical representation designed to **illustrate flows connecting different states, categories, or levels of information**. Its distinctive feature lies in the thickness of the flows, which is proportional to the quantity or frequency of what transitions between successive axes. The diagram is typically read from left to right, with each **axis corresponding to a step or variable**, while the flows depict how a population redistributes across these levels. This type of visualization allows for the **tracking of complex trajectories, highlighting dominant pathways and revealing dispersion or concentration patterns** that are often difficult to interpret using tables or more conventional plots. When constructed with balanced and coherent data, a Sankey diagram provides a synthetic understanding of multidimensional movements that might otherwise remain obscure.
+
+</div>
+
+## Specific Use Case: Clinical Trials and Adverse Events (CTC-AE)
+
+<div style="text-align: justify;">
+
+**In clinical trials**, a Sankey diagram can serve as a valuable tool for **exploring the dynamics of subpopulations**, for example when analyzing adverse events (AEs). It can illustrate participant transitions with respect to AE severity, suspected causality, or medical category, and can help **visualize how certain subgroups evolve differently across the axes under study**. 
+
+**One major advantage** of this approach is its ability to reveal particular trajectories, such as patients experiencing recurrent severe AEs or belonging to specific symptom clusters, thereby supporting the identification of subpopulations that may warrant closer examination. However, this **method also has limitations**, especially when data **disparities between axes** create numerous crossing flows, potentially leading to a visually complex or confusing representation. 
+
+The **objective of a Sankey diagram in a clinical context** must therefore be carefully defined beforehand, as its usefulness strongly **depends on data structure**, selected **granularity**, and the **specific question** being addressed by the user. When well designed and applied with discernment, it remains a powerful tool for summarizing multidimensional patterns related to safety outcomes or the clinical evolution of a study population.
+
+Another graphics in relation with the Sankey diagram is the [**Alluvial plot**](https://corybrunson.github.io/ggalluvial/).
+
+</div>
+
+# Exemple
+
+<div style="text-align: justify;">
+
+In this section, we present an example of applying a Sankey diagram to adverse event data (ADAE), structured across several levels: *treatment arm, system organ class (SOC), event severity, seriousness, and, among serious adverse events, the identification of those deemed related to the treatment*. After an extensive review of the available solutions in Python, R, and SAS, the **most advanced and user‑friendly implementations** for generating Sankey diagrams are found within the **R ecosystem**. The [**ggsankyfier**](https://pepijn-devries.github.io/ggsankeyfier/) package, both extensions of ggplot2, provide a **fast, intuitive, and consistent framework aligned with the ggplot2 grammar** of graphics. This makes them particularly suitable for reproducible analytical workflows and for producing publication‑quality clinical data visualizations.
+
+</div>
+
+![**Sankey diagram generated with R**](images/sankey_R.png)
+```{r, eval=FALSE, numberLines=TRUE}
+
+
+ggplot(data_ae_long, aes(x = x, 
+                         next_x = next_x, 
+                         node = node, 
+                         next_node = next_node, 
+                         fill = factor(node), 
+       label = node)) +
+  geom_sankey(flow.alpha = .6,
+              node.color = "gray30") +
+  geom_sankey_label(size = 3, color = "white", fill = "gray40") +
+  scale_fill_viridis_d(drop = T) +
+  theme_sankey(base_size = 18) +
+  labs(x = NULL, title = NULL) +
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5))
+
+
+```
+
+::: {.callout-note}
+
+Graphics has been built with the ADSL and ADAE tables. Data has been generated with [*random.cdisc*](https://insightsengineering.github.io/random.cdisc.data/main/index.html) librairy of the CRAN in R (Version 4.2.0).
+:::
+
+
+# References
+
+- de Vries P (2025). ggsankeyfier: Create Sankey and Alluvial Diagrams Using 'ggplot2'. R package version 0.1.8.0015, https://pepijn-devries.github.io/ggsankeyfier/.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

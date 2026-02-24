@@ -17,23 +17,23 @@ format:
   
   Personal website (comming soon)
 
-  Contact (comming soon)
+  **contact:** fleurym@ipc.unicancer.fr
   
   <u>**License**</u>
 
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
 
-[Mosaïc Plot]{property="dct:title"} by [Maxime FLEURY]{property="cc:attributionName"} is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/></a>
+[Clinical Graphics]{property="dct:title"} by [Maxime FLEURY]{property="cc:attributionName"} is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/></a>
 
 </p>
 
 <u>**Community**</u> 
 
-Website (comming soon)
+[Innostatclinical](https://innostatclinical.com/en/)
 
-<u>**Developers**</u>
+<u>**Contributor**</u>
 
-Maxime Fleury, *Author, maintainer* - Health Statistician Developers
+Maxime Fleury, *Author, maintainer* - Health Statistician 
 
 <u>**Dev status**</u>
 
@@ -50,9 +50,15 @@ Maxime Fleury, *Author, maintainer* - Health Statistician Developers
 
 # What is a Tornado plot
 
+<div style="text-align: justify;">
+
 A Tornado Plot is a graphical tool used to display the impact of multiple variables on a specific outcome in a clear and comparative manner. The main goal of a Tornado Plot is to identify which factors have the greatest influence on the variability of a system output. This Plot consists of horizontal bars representing the effect of varying one parameter within a predefined range while keeping others constant. The baseline or reference value of the outcome is positioned along a central axis, and deviations to the left or right indicate the impact of parameter changes. Parameters are sorted by their impact magnitude, with the most influential at the top, creating the characteristic “tornado” shape.
 
+</div>
+
 ## Specific Use Case: Clinical Trials and Adverse Events (CTC-AE)
+
+<div style="text-align: justify;">
 
 In the context of Adverse Events (AE) data, the tornado plot helps to illustrate the impact of various factors according to treatment groups and severity levels on the occurrence or frequency of adverse events. It is particularly useful for identifying the most influential variables and understanding how they contribute to the overall safety profile of a treatment. By presenting this information in a clear, hierarchical manner, the tornado plot enables clinical researchers to prioritize risk factors and make informed decisions regarding patient safety and treatment efficacy.
 
@@ -61,6 +67,8 @@ On the (Ox) axis are rapresented the pourcentage of adverse events and on (Oy) a
 To create a tornado plot, you must have the Adverse Events table and the ADSL tables. These tables must be in CDISC format, structured according to the ADaM data model.
 
 In the *AE table*, Adverse events must be coded according to the [*CTC-AE*](https://dctd.cancer.gov/research/ctep-trials/for-sites/adverse-events#ctcae) (Common Terminology Criteria for Adverse Events) classification.
+
+</div>
 
 <details><summary>CTCAE code</summary>
 

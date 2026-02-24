@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Clinical Graphics"
+  title: "Clinical Graphics Gallery"
 
   page-footer: 
     right: "This page is built with [Quarto](https://quarto.org/)"
@@ -17,7 +17,7 @@ website:
       url: https://www.linkedin.com/in/maxime-fleury-/
     - icon: github
       text: Github
-      url: gitlab.com/F.MAXIME/
+      url: https://github.com/FLEURY21/
     left:
     - text: "Clinical Graphics"
       href: graphics_theoric_interest.qmd
@@ -29,20 +29,21 @@ website:
           href: mosaic_plot_page.qmd
           
         - text: "Waterfall plot"
+          href: waterfall_plot_page.qmd
       
-        - text: "Risk plot"
-    
-        - text: "Survival plot"
-          
-
+        - text: "Sankey plot"
+          href: sankey_plot_page.qmd 
+ 
     - text: "Patient profil graphics list"
       menu:
         - text: "Lexis diagram"
           href: lexis_diagram_page.qmd
 
         - text: "Consort diagram"
+          href: consort_diagram_page.qmd
 
         - text: "Swimmer plot"
+          href: swimmer_plot_page.qmd 
 
 format:
   html:

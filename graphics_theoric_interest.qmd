@@ -17,7 +17,7 @@ format:
   
   Personal website (comming soon)
 
-  Contact (comming soon)
+  **contact:** fleurym@ipc.unicancer.fr
   
   <u>**License**</u>
 
@@ -29,11 +29,11 @@ format:
 
 <u>**Community**</u> 
 
-Website (comming soon)
+[Innostatclinical](https://innostatclinical.com/en/)
 
-<u>**Developers**</u>
+<u>**Contributor**</u>
 
-Maxime Fleury, *Author, maintainer* - Health Statistician Developers
+Maxime Fleury, *Author, maintainer* - Health Statistician 
 
 <u>**Dev status**</u>
 
@@ -52,7 +52,7 @@ Maxime Fleury, *Author, maintainer* - Health Statistician Developers
 
 <div style="text-align: justify;">
 
-The **advent of innovative therapies**, particularly in oncology (e.g., immunotherapy), combined with the rapid **rise of artificial intelligence**, has led to a significant increase in the **complexity** of clinical questions and hypotheses. In this context, traditional representation methods (tables, histograms) are no longer sufficient to ensure a high level of analytical performance and presentation quality in the face of these new challenges. It is therefore essential to **innovate in data visualization** by adopting robust, reproducible, and fit-for purpose representations.
+The **rise of innovative therapies**—particularly in oncology, such as **immunotherapy**—combined with the rapid development of **artificial intelligence**, has increased the **complexity of clinical questions and hypotheses**. In this evolving scientific landscape, it is essential to develop **new data visualization** approaches capable of representing more **multidimensional and dynamic phenomena**. These visual strategies complement and strengthen traditional methods, enhancing both analytical **precision and the clarity** of presented results.
 
 We distinguish two main categories of graphics:
 
