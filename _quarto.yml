@@ -27,13 +27,10 @@ website:
           href: "Tornado_plot_page.qmd"
         - text: "Mosaic plot"
           href: mosaic_plot_page.qmd
-          
         - text: "Waterfall plot"
           href: waterfall_plot_page.qmd
-      
         - text: "Sankey plot"
           href: sankey_plot_page.qmd 
- 
     - text: "Patient profil graphics list"
       menu:
         - text: "Lexis diagram"
